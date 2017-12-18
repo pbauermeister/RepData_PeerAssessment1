@@ -110,7 +110,8 @@ To fill in the missing values, we will use the mean (that was computed above) to
 
 ```r
 activity.fixed <- activity.all
-activity.fixed$steps[is.na(activity.fixed$steps)] <- mean.by.interval$mean
+activity.fixed$mean <- mean.by.interval$mean # source will be repeated for each day into dest
+activity.fixed$steps[is.na(activity.fixed$steps)] <- activity.fixed$mean[is.na(activity.fixed$steps)]
 ```
 The dataset `activity.fixed` now has the NAs replaced by the means.
 
@@ -133,7 +134,7 @@ median2 <- median(daily.steps2$steps)
 - Imputed mean: 10766.1886792453 (was 10766.1886792453).
 - Imputed median: 10766.1886792453 (was 10765).
 
-Imputing missing data (using the mean) preserves the mean and changes the median.
+Imputing missing data (using the mean) obviously preserves the mean but changes the median.
 
 ## Differences in activity patterns between weekdays and weekends
 

@@ -179,7 +179,8 @@ value &lt;- mean.by.interval$mean[index]</code></pre>
 <pre><code>## [1] 2304</code></pre>
 <p>To fill in the missing values, we will use the mean (that was computed above) to replace the NAs and create a new data frame (<code>activity.fixed</code>):</p>
 <pre class="r"><code>activity.fixed &lt;- activity.all
-activity.fixed$steps[is.na(activity.fixed$steps)] &lt;- mean.by.interval$mean</code></pre>
+activity.fixed$mean &lt;- mean.by.interval$mean # source will be repeated for each day into dest
+activity.fixed$steps[is.na(activity.fixed$steps)] &lt;- activity.fixed$mean[is.na(activity.fixed$steps)]</code></pre>
 <p>The dataset <code>activity.fixed</code> now has the NAs replaced by the means.</p>
 <p>Histogram of daily steps:</p>
 <pre class="r"><code>daily.steps2 &lt;- aggregate(steps ~ date, data=activity.fixed, FUN=sum)
@@ -192,7 +193,7 @@ median2 &lt;- median(daily.steps2$steps)</code></pre>
 <li>Imputed mean: 10766.1886792453 (was 10766.1886792453).</li>
 <li>Imputed median: 10766.1886792453 (was 10765).</li>
 </ul>
-<p>Imputing missing data (using the mean) preserves the mean and changes the median.</p>
+<p>Imputing missing data (using the mean) obviously preserves the mean but changes the median.</p>
 </div>
 <div id="differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Differences in activity patterns between weekdays and weekends</h2>
